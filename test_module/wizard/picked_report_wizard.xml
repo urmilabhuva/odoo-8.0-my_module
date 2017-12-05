@@ -1,0 +1,50 @@
+<openerp>
+	<data>
+
+		<record id="pickedoreder_report_view" model="ir.ui.view">
+		    <field name="name">Picked Order Wizard</field>
+		    <field name="model">pick.wizard</field>
+		    <!-- <field name="inherit_id" ref="test_module.pick_order_form_view"/> -->
+		    <field name="arch" type="xml">
+		    	<!-- <xpath expr="//field[@name='date']" position="after">
+		    		<field name="start_date"/>
+		    		<field name="end_date"/>
+		    	</xpath>
+
+				<xpath expr="//button[@name='button_cancle']" position="after">
+					<button name="check_report" string="Print" type="object" />
+            	</xpath> -->
+            	<form>
+            		<sheet>
+	            		<group>
+	            			<field name="start_date"/>
+	            			<field name="end_date"/>
+	            		</group>
+						<field name="state"/>
+
+	            		<button name="print_product_detail" string="Print" type="object" />
+            		</sheet>
+            	</form>
+		    </field>
+		</record>
+
+
+		<record id="action_pickedorder_wizard" model="ir.actions.act_window">
+		    <field name="name">Generate Picked Order Report</field>
+		    <field name="res_model">pick.wizard</field>
+		    <field name="type">ir.actions.act_window</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">form</field>
+		    <field name="view_id" ref="pickedoreder_report_view"/>
+		    <field name="target">new</field>
+		</record>
+
+
+		<menuitem id="pickedorder_pdf_report" name="Picked Reports" parent="stock.menu_stock_warehouse_mgmt" action="action_pickedorder_wizard"/>
+
+
+
+
+
+	</data>
+</openerp>

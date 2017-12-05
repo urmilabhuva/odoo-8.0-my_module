@@ -1,0 +1,16 @@
+<openerp>
+    <data>
+        <!-- Picking order sequence code. -->
+        <record id="picking_order_sequence_type" model="ir.sequence.type">
+            <field name="name">Picking Order Sequence</field>
+            <field name="code">picking.order.sequence</field>
+        </record>
+
+    	<record id="picking_order_sequence_view" model="ir.sequence">
+    		<field name="name">Picking Order Sequence</field>
+    		<field name="code">picking.order.sequence</field>
+    		<field name="prefix">Pack/</field>
+    		<field name="padding">4</field>
+    	</record>
+    </data>
+</openerp>

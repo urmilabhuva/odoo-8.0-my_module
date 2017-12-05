@@ -1,0 +1,51 @@
+<openerp>
+    <data>
+
+
+        <record model="ir.ui.view" id="stock_picking_wizard_form_view">
+                    <field name="name">wizard.form</field>
+                    <field name="model">dopick.wizard</field>
+                    <field name="arch" type="xml">
+                        <form string="Pick DO">
+                            <field name="pick_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="state"/>
+                                    
+                                </tree>
+                            </field>
+
+                          
+                            <footer>
+                                
+                                <button name = "get_pick" string="Take it" type="object" class="oe_highlight"/>
+                                or
+                                <button string="Cancel" class="oe_highlight" special="cancel" />
+                            </footer>
+
+                        </form>
+                    </field>
+        </record>
+
+
+                <!-- <act_window id="stock_pick_wizard_action"
+                            name="Stock Picking"
+                            src_model="picking.order"
+                            res_model="dopick.wizard"
+                            view_mode="form"
+                            view_id="stock_picking_wizard_form_view"
+                            target="new"/>
+
+ -->
+                <record model="ir.actions.act_window" id="stock_pick_wizard_action">
+                    <field name="name">Pick DO</field>
+                    <field name="res_model">dopick.wizard</field>
+                    <field name="view_type">form</field>
+                    <field name="view_mode">form</field>
+                    <field name="view_id" ref="stock_picking_wizard_form_view"/>
+                    <field name="target">new</field>
+                </record>
+
+    </data>
+</openerp>

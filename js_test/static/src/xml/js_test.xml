@@ -1,0 +1,13 @@
+<templates id="template" xml:space="preserve">
+    <t t-name="GreetingsWidget">
+    	<div>
+            <t t-foreach="widget.products" t-as="product">
+                <span class="oe_products_item">
+                <!--     t-attf-style="background-color: {{ widget.color }}; -->
+                    <t t-esc="product"/>
+                </span>
+                <br/>
+            </t>
+        </div>
+	</t>
+</templates>

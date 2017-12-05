@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- display barcode detail like product, quantity, -->
+    <t t-name='PickingOrderEditorWidget'>
+       <div class="row">
+
+            <t t-value="1" t-set="count"/>
+            <div  class="col-md-3 col-sm-4 col-xs-6">
+                <t t-foreach="widget.get_rows()" t-as="row">
+                    <t t-if="count == 1">
+                        <h2 class="picking_order_name" t-att-data-picking-number="row.picking_number"><t t-esc="row.picking_number"/>
+                      </h2>  <t t-value="count + 1" t-set="count"/>
+                    </t>
+                </t>
+            </div>
+            <div>
+                <div class="col-sm-4 col-xs-6">
+                    <h2 class="oe_pick_app_header" />
+                </div>
+                <div class="col-sm-8 col-xs⁻6 text-right">
+                    <a href="/web#action=test_module.pick_order_list_action"><button type="button" class='btn btn-default js-picked-button'> Picked </button></a>
+                </div>
+            </div>
+        </div>
+        <div>
+            <table class='table table-condensed js_op_table_todo'>
+                <thead>
+                    <tr>
+                        <th class="text-left">Product</th>
+                        <th class='text-center' width="150">Scanned</th>
+                        <th class='text-center'>Todo</th>
+                        <th class='text-center'>Remark</th>
+                        <th style="display:none;width:25%">Location</th>
+                        <th style="display:none;width:25%">Dest Location</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <t t-foreach="widget.get_rows()" t-as="row">
+                        <tr>
+                            <th class="product-data-id" t-att-data-product_id-id="row.cols.product_id">
+                                <t t-esc="row.cols.product_id[1]"/>
+                            </th>
+                            <th class='brctbl-col2 text-center js_row_qty'>
+                                <div class="input-group">
+                                    <span class="input-group-addon js_minus input-sm" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-minus"></i></a></span>
+                                    <form class="js_submit_value">
+                                        <input type="text" class="form-control text-center js_qty" t-att-value="row.cols.rem"></input>
+                                    </form>
+                                    <span class="input-group-addon js_plus input-sm" t-att-data-product-id='row.cols.product_id'><a href="#"><i class="fa fa-plus"></i></a></span>
+                                </div>
+                            </th>
+                            <th class="brctbl-col3 text-right original-qty" t-att-data-original-qty="row.cols.qty">
+                                <span t-esc="row.cols.qty"/><t t-esc="row.cols.uom"/>
+                            </th>
+                            <th class='text-center'>
+                               <input type="text" name="remarks" class="th_product_remarks"/>
+                           </th>
+                            <th style="display:none;"><input type="text" name="location_id" t-att-value="row.cols.location_id" class="input_location_id" t-att-data-location-id="row.cols.location_id"/></th>
+                            <th style="display:none;"><input type="text" name="location_dest_id" t-att-value="row.cols.location_dest_id" class="input_location_dest_id" t-att-data-location_dest-id="row.cols.location_dest_id"/></th>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+
+    <!-- Select operation like delivery order, receipts, and internal transfer and redirect on picking model. -->
+    <t t-name="PickingOrderMenuWidget">
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header navbar-form navbar-left">
+                    <input type='text' class="oe_searchbox form-control pull-left" placeholder='Search'/>
+                </div>
+                <div class="navbar-header navbar-form navbar-right">
+                    <button type="button" class="btn btn-danger js_pick_quit pull-right">Quit</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+
+            <h1 class="js_title_label">Select your operation</h1>
+            <div class='js_picking_not_found alert alert-warning hidden'>
+                Scanned picking could not be found
+            </div>
+
+            <div class='js_picking_search_results panel panel-info hidden'>
+            </div>
+
+            <div class="row js_picking_categories">
+                <t t-foreach="widget.picking_types" t-as="type">
+                    <div class="col-lg-3 col-md-4">
+                        <div t-att-class="'oe_kanban oe_picking oe_kanban_color_' + type.color + ' ' + (widget.pickings_by_type[type.id].length === 0 ? 'oe_empty':'js_pick_last') "
+                                         t-att-data-id="type.id">
+                            <t t-if="type.code == 'incoming'" ><span class="fa fa-sign-in fa-2x"></span></t>
+                            <t t-if="type.code == 'outgoing'" ><span class="fa fa-truck fa-2x fa-flip-horizontal"></span></t>
+                            <t t-if="type.code == 'internal'" ><span class="fa fa-retweet fa-2x"></span></t>
+                            <strong><span><t t-esc="type.complete_name"/></span></strong>
+                            <div><t t-if="widget.pickings_by_type[type.id].length > 0">
+                                <span class='badge'><t t-esc="widget.pickings_by_type[type.id].length" /> picking(s) </span>
+                            </t></div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+
+    <!-- Display menu and goto next record and previous records. Template use same as in stock.-->
+    <t t-name="PickingOrderMainWidget">
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-left">
+                    <button type="button" class="btn btn-primary navbar-btn js_pick_menu">Menu</button>
+                </div>
+                <div class="navbar-right">
+                    <button type="button" class="btn btn-default navbar-btn js_pick_prev">&lt; Previous</button>
+                    <button type="button" class="btn btn-default navbar-btn js_pick_next">Next &gt;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class='oe_placeholder_picking_editor'/>
+            <div class="text-right small oe_reload_op">
+                The reserved stock changed. You might want to <button class="btn btn-default js_reload_op"> Recompute </button> the operations.
+            </div>
+        </div>
+    </t>
+
+</templates>

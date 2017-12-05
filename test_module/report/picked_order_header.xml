@@ -1,0 +1,50 @@
+<openerp>
+	<data>
+	<!-- Template For Header which is apply only picking order models -->
+		<template id="cus_report_header">
+		    <div class="header">
+		        <div class="row">
+		            <div class="col-xs-3">
+		            
+		                <img src="/test_module/static/src/img/header.png" style="max-height: 45px;"/>
+		            </div>
+		            <div class="col-xs-4 pull-right">
+		                <span t-if="company.partner_id.street"><span t-field="company.partner_id.street"/><br/></span>
+						<span t-if="company.partner_id.street2"><span t-field="company.partner_id.street2"/><br/></span>
+						<span t-if="company.partner_id.city"><span t-field="company.partner_id.city"/></span>
+						<span t-if="company.partner_id.state_id"> <span t-field="company.partner_id.state_id.code"/></span>
+						<span t-if="company.partner_id.zip"><span t-field="company.partner_id.zip"/><br/></span>
+						<span t-if="company.partner_id.country_id"><span t-field="company.partner_id.country_id"/></span><br/>
+						Phone:<span t-if="company.partner_id.phone"><span t-field="company.partner_id.phone"/></span><br/>
+						Mail:<span t-if="company.partner_id.email"><span t-field="company.partner_id.email"/></span>
+		            </div>
+		        </div>
+		    </div>
+		</template>
+
+		<template id="cus_report_footer">
+		    <div class="footer">
+			    <div class="row">
+			        <div class="col-xs-2 pull-right">
+			            <span>Page</span>
+			            <span class="page"/>
+			            of
+			            <span class="topage"/>
+			        </div>
+			    </div>
+			</div>
+		</template>
+
+		<template id="cus_picking_order_report_header">
+		    <t t-if="docs and 'company_id' in docs">
+		        <t t-set="company" t-value="docs.company_id"></t>
+		    </t>
+		    <t t-if="not docs or not 'company_id' in docs">
+		        <t t-set="company" t-value="res_company"></t>
+		    </t>
+		    <t t-call="test_module.cus_report_header" />
+		    <t t-raw="0" />
+		    <t t-call="test_module.cus_report_footer" />
+		</template>
+	</data>
+</openerp>

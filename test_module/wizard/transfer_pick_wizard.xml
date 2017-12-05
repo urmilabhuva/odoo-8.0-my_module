@@ -1,0 +1,56 @@
+<openerp>
+	<data>
+		<record id="order_transfer_details_form_view" model="ir.ui.view">
+            <field name="name">Order Transfer Details</field>
+            <field name="model">order.transfer.details.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Order Transfer Details">
+                    <field name="picking_order_detail_line_ids">
+                        <tree editable="bottom" string="Transfer">
+                            <field name="product_id"/>
+                            <field name="qty"/>
+                            <field name="original_qty" invisible="1"/>
+                        </tree>
+                    </field>
+                    
+                    <footer>
+                        <button string="Apply" name="transfer_order_products" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_highlight" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action view for transfer wizard -->
+        <record id="order_transfer_details_wizard_action" model="ir.actions.act_window">
+            <field name="name">Order Transfer Details</field>
+            <field name="res_model">order.transfer.details.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="order_transfer_details_form_view"/>
+            <field name="target">new</field>
+        </record>
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</data>
+</openerp>

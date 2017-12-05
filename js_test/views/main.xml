@@ -1,0 +1,21 @@
+<openerp>
+	<data>
+
+		<record model="ir.actions.act_url" id="action_pos_pos">
+            <field name="name">Start Test JS</field>
+            <field name="url">/test/web/</field>
+            <field name="target">self</field>
+        </record>
+
+		<menuitem id="main_test_js_menu" name="Test JS" action="action_pos_pos"/>
+       <!--  <menuitem id="test_js_menu" name="Test JS" parent="main_test_js_menu"/>
+        <menuitem id="test_menu" name="Test" parent="test_js_menu" /> -->
+
+
+
+
+
+
+
+	</data>
+</openerp>
